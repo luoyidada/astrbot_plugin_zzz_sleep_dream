@@ -138,4 +138,4 @@
 如有问题或建议，欢迎在社区提交 Issue。本插件基于 AstrBot 插件框架开发。
 
 **作者：** TessromaVerra  
-**许可证：** MIT License
+**许可证：** AGPL-3.0 License
