@@ -1,0 +1,217 @@
+{
+  "system_settings": {
+    "description": "系统设置",
+    "hint": "基础参数与白名单",
+    "type": "object",
+    "items": {
+      "bot_nickname": {
+        "description": "机器人昵称",
+        "hint": "用于判断是否被提及，以及提醒文案中的 {bot_name}",
+        "type": "string",
+        "default": "暝暝"
+      },
+      "interceptor_mode": {
+        "description": "拦截策略",
+        "hint": "当前仅支持 mention：仅当 @机器人 或消息包含昵称，或发送唤醒词时触发互动",
+        "type": "string",
+        "default": "mention"
+      },
+      "whitelist_users": {
+        "description": "用户白名单",
+        "hint": "列表中的用户 ID 在任何场景下均不受睡眠限制",
+        "type": "list",
+        "default": []
+      },
+      "whitelist_groups": {
+        "description": "群组白名单",
+        "hint": "列表中的群号内所有成员均不受限制",
+        "type": "list",
+        "default": []
+      }
+    }
+  },
+  "rest_settings": {
+    "description": "休息设置",
+    "hint": "作息时间、提醒与唤醒规则",
+    "type": "object",
+    "items": {
+      "enable_curfew": {
+        "description": "开启休息模式",
+        "hint": "关闭后机器人将不再进入睡眠状态",
+        "type": "bool",
+        "default": true
+      },
+      "curfew_time": {
+        "description": "休息时段",
+        "hint": "格式：HH:MM-HH:MM，支持跨天（如 23:00-08:00）",
+        "type": "string",
+        "default": "23:00-08:00"
+      },
+      "curfew_reply": {
+        "description": "休息回复语",
+        "hint": "在休息时段内，对非唤醒消息的自动回复",
+        "type": "string",
+        "default": "（困倦）现在是休息时间哦，不可以打扰，快去睡觉..."
+      },
+      "enable_reminder": {
+        "description": "开启睡前提醒",
+        "hint": "在休息时段开始前发送提醒",
+        "type": "bool",
+        "default": true
+      },
+      "pre_sleep_minutes": {
+        "description": "提前提醒分钟数",
+        "hint": "必须在 1~60 之间",
+        "type": "int",
+        "default": 15
+      },
+      "reminder_text": {
+        "description": "提醒文案",
+        "hint": "支持 {minutes}（剩余分钟）和 {bot_name}（昵称）占位符",
+        "type": "string",
+        "default": "（{bot_name}再过 {minutes} 分钟就要睡觉去了，休要打扰本小姐休息。）"
+      },
+      "wakeup_words": {
+        "description": "唤醒词",
+        "hint": "消息完全匹配任一词汇即可唤醒机器人",
+        "type": "list",
+        "default": ["醒醒", "起床"]
+      },
+      "max_wakes_per_period": {
+        "description": "每时段最大唤醒次数",
+        "hint": "超过后机器人会烦躁拒绝，建议 1~5",
+        "type": "int",
+        "default": 3
+      },
+      "post_wakeup_minutes": {
+        "description": "清醒持续时间",
+        "hint": "唤醒后保持清醒的分钟数，1~120",
+        "type": "int",
+        "default": 10
+      },
+      "wakeup_reply": {
+        "description": "唤醒成功回复语",
+        "hint": "被成功唤醒时的台词，支持 {dream} 占位符复述梦境",
+        "type": "string",
+        "default": "（揉眼睛）唔...吵死了...你为什么要吵醒我？梦里梦见你说：“{dream}”..."
+      },
+      "empty_dream_text": {
+        "description": "空梦境占位符",
+        "hint": "当入睡期间没有任何消息记录时，{dream} 展现的无意义文字",
+        "type": "string",
+        "default": "虚无"
+      },
+      "re_sleep_reply": {
+        "description": "重新入睡提示语",
+        "hint": "清醒时间到，机器人重新躺下睡觉时的提示",
+        "type": "string",
+        "default": "（打个哈欠）唔...好困，还是再睡一会儿吧..."
+      },
+      "reject_wakeup_reply": {
+        "description": "拒绝唤醒回复语",
+        "hint": "超过最大唤醒次数后，再次发送唤醒词收到的惩罚回复",
+        "type": "string",
+        "default": "（烦躁地翻了个身）我都醒这么多次了，不理你了！"
+      }
+    }
+  },
+  "drowsy_settings": {
+    "description": "朦胧设置",
+    "hint": "唤醒后随机赋予的迷糊等级（0~4）对应提示词",
+    "type": "object",
+    "items": {
+      "enable_drowsy": {
+        "description": "开启朦胧期",
+        "hint": "唤醒时随机赋予 0~4 级的迷糊状态，使回复带有困意",
+        "type": "bool",
+        "default": true
+      },
+      "drowsy_text_level_0": {
+        "description": "Lv.0 完全清醒",
+        "type": "string",
+        "default": "（你现在完全清醒，精力充沛。朦胧度:{level}/4）"
+      },
+      "drowsy_text_level_1": {
+        "description": "Lv.1 轻微困倦",
+        "type": "string",
+        "default": "（你刚睡醒，有一点困倦，反应正常。朦胧度:{level}/4）"
+      },
+      "drowsy_text_level_2": {
+        "description": "Lv.2 半梦半醒",
+        "type": "string",
+        "default": "（你半梦半醒，说话含糊，容易走神。朦胧度:{level}/4）"
+      },
+      "drowsy_text_level_3": {
+        "description": "Lv.3 重度迷糊",
+        "type": "string",
+        "default": "（你极度迷糊，胡言乱语，记忆混乱。朦胧度:{level}/4）"
+      },
+      "drowsy_text_level_4": {
+        "description": "Lv.4 最深梦境",
+        "type": "string",
+        "default": "（你陷入最深的梦境，所说皆是虚幻的梦呓。朦胧度:{level}/4）"
+      }
+    }
+  },
+  "affection_settings": {
+    "description": "好感度设置",
+    "hint": "起床气与好感度系统，连续打扰会降低好感度并触发冷漠语气",
+    "type": "object",
+    "items": {
+      "enable_affection": {
+        "description": "开启好感度系统",
+        "hint": "总开关，关闭后不影响其他功能",
+        "type": "bool",
+        "default": false
+      },
+      "initial_affection": {
+        "description": "初始好感度",
+        "hint": "每位用户首次交互时的好感度数值（0~100）",
+        "type": "int",
+        "default": 50
+      },
+      "wake_deduct": {
+        "description": "唤醒扣除好感度",
+        "hint": "每次成功唤醒扣除的数值",
+        "type": "int",
+        "default": 5
+      },
+      "repeat_wake_deduct": {
+        "description": "重复唤醒额外扣除",
+        "hint": "清醒期间再次发送唤醒词额外扣除的数值",
+        "type": "int",
+        "default": 10
+      },
+      "reject_wake_deduct": {
+        "description": "拒绝唤醒扣除",
+        "hint": "被拒绝唤醒后仍尝试唤醒扣除的数值",
+        "type": "int",
+        "default": 2
+      },
+      "low_affection_threshold": {
+        "description": "好感度过低阈值",
+        "hint": "低于此值机器人态度会变冷淡",
+        "type": "int",
+        "default": 10
+      },
+      "low_affection_tone": {
+        "description": "低好感度语气前缀",
+        "hint": "好感度低于阈值时，自动在回复前添加的文本",
+        "type": "string",
+        "default": "（冷漠地）"
+      },
+      "recover_per_hour": {
+        "description": "自然恢复速度/小时",
+        "hint": "每小时自动恢复的好感度（0 则不恢复）",
+        "type": "int",
+        "default": 1
+      },
+      "rest_recover_rate": {
+        "description": "休息时段恢复倍率",
+        "hint": "休息时段内恢复速度的倍率（如 0.5 即减半，0 则休息时不恢复）",
+        "type": "float",
+        "default": 0.5
+      }
+    }
+  }
+}
