@@ -101,7 +101,6 @@
 ## 📦 安装与更新
  **安装方式**：
 将本仓库下载并解压到 `data/plugins/` 目录下，随后在 AstrBot 后台重载插件即可使用。
-或在 AstrBot 的插件市场搜索 `astrbot_plugin_zzz_sleep_dream`，点击安装即可。
 
 ---
 
